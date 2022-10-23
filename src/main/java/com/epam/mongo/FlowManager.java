@@ -1,6 +1,7 @@
 package com.epam.mongo;
 
 import com.epam.mongo.domain.Command;
+import com.epam.mongo.domain.SubCommand;
 import com.epam.mongo.util.CommandResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,12 +12,15 @@ import java.util.Scanner;
 import static com.epam.mongo.domain.Command.EXIT;
 import static com.epam.mongo.domain.Command.LIST_SUBTASKS_WITH_GIVEN_CATEGORY;
 import static com.epam.mongo.domain.Command.LIST_WITH_GIVEN_CATEGORY;
+import static com.epam.mongo.domain.Command.MANAGE_SUBTASK;
+import static com.epam.mongo.domain.Command.MANAGE_TASK;
 
 @Component
 public class FlowManager {
 
     private final CommandDelegator commandDelegator;
     private final List<Command> queryNeededCommands = List.of(LIST_WITH_GIVEN_CATEGORY, LIST_SUBTASKS_WITH_GIVEN_CATEGORY);
+    private final List<Command> subcommandNeededCommands = List.of(MANAGE_TASK, MANAGE_SUBTASK);
 
     @Autowired
     public FlowManager(CommandDelegator commandDelegator) {
@@ -42,19 +46,29 @@ public class FlowManager {
         while (true) {
             try {
                 Command command = getInputCommand(scanner);
+                SubCommand subCommand = null;
                 String query = null;
                 if (EXIT.equals(command)) {
                     break;
                 } else if (isQueryRequired(command)) {
                     System.out.println("please enter the query");
                     query = scanner.nextLine().toUpperCase();
+                } else if (isSubCommandRequired(command)) {
+                    System.out.println("please enter subcommand (insert/update/delete)");
+                    subCommand = SubCommand.valueOf(scanner.nextLine().toUpperCase());
                 }
-                commandDelegator.delegate(command, query);
+                commandDelegator.delegate(command, subCommand, query);
             } catch (Exception e) {
                 System.err.println("EXCEPTION: " + e);
             }
         }
         scanner.close();
+    }
+
+
+
+    private boolean isSubCommandRequired(Command command) {
+        return false;
     }
 
     private boolean isQueryRequired(Command command) {

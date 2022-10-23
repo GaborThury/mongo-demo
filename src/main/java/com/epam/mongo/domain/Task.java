@@ -14,6 +14,9 @@ public class Task {
     private List<SubTask> subtasks;
     private Category category;
 
+    public Task() {
+    }
+
     public Task(long createdAtInEpoch, long deadlineInEpoch, String name, String description, List<SubTask> subtasks, Category category) {
         this.createdAtInEpoch = createdAtInEpoch;
         this.deadlineInEpoch = deadlineInEpoch;

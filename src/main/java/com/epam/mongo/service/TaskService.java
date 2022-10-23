@@ -44,6 +44,18 @@ public class TaskService {
         printElements(tasksWithGivenCategory);
     }
 
+    public Task createTask(Task task) {
+        return taskRepository.insert(task);
+    }
+
+    public Task updateTask(Task task) {
+        return taskRepository.save(task);
+    }
+
+    public void deleteTask(Task task) {
+        taskRepository.delete(task);
+    }
+
     private void printElements(List<?> elements) {
         elements.forEach(
                 task -> System.out.println(task + "\n")
