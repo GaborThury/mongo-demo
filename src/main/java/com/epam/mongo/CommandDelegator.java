@@ -22,6 +22,7 @@ public class CommandDelegator {
             case LIST_ALL -> taskService.printAllTasks();
             case LIST_OVERDUE -> taskService.printOverdueTasks();
             case LIST_WITH_GIVEN_CATEGORY -> taskService.printTasksWithGivenCategory(Category.valueOf(query));
+            case LIST_SUBTASKS_WITH_GIVEN_CATEGORY -> taskService.printSubTasksWithGivenCategory(Category.valueOf(query));
         }
     }
 }

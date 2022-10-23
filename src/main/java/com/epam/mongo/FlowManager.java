@@ -5,15 +5,18 @@ import com.epam.mongo.util.CommandResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Scanner;
 
 import static com.epam.mongo.domain.Command.EXIT;
+import static com.epam.mongo.domain.Command.LIST_SUBTASKS_WITH_GIVEN_CATEGORY;
 import static com.epam.mongo.domain.Command.LIST_WITH_GIVEN_CATEGORY;
 
 @Component
 public class FlowManager {
 
     private final CommandDelegator commandDelegator;
+    private final List<Command> queryNeededCommands = List.of(LIST_WITH_GIVEN_CATEGORY, LIST_SUBTASKS_WITH_GIVEN_CATEGORY);
 
     @Autowired
     public FlowManager(CommandDelegator commandDelegator) {
@@ -55,10 +58,7 @@ public class FlowManager {
     }
 
     private boolean isQueryRequired(Command command) {
-        if (LIST_WITH_GIVEN_CATEGORY.equals(command)) {
-            return true;
-        }
-        return false;
+        return queryNeededCommands.contains(command);
     }
 
     private Command getInputCommand(Scanner scanner) {
