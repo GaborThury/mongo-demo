@@ -7,8 +7,6 @@ import com.epam.mongo.repository.TaskRepository;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.math.BigInteger;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -32,7 +30,7 @@ public class MongoInitializer {
         return List.of(
                 new Task(
                         generateTime(),
-                        generateCurrentTime(),
+                        generateTomorrowTime(),
                         "Cooking",
                         "have to cook the dinner",
                         List.of(
@@ -55,15 +53,15 @@ public class MongoInitializer {
         );
     }
 
-    private BigInteger generateTime() {
-        return BigInteger.valueOf(LocalDateTime.of(2022, 10, 19, 10, 15).toEpochSecond(ZoneOffset.UTC));
+    private long generateTime() {
+        return LocalDateTime.of(2022, 10, 19, 10, 15).toEpochSecond(ZoneOffset.UTC);
     }
 
-    private BigInteger generateCurrentTime() {
-        return BigInteger.valueOf(System.currentTimeMillis() / 1000);
+    private long generateTomorrowTime() {
+        return LocalDateTime.now().plusDays(1).toEpochSecond(ZoneOffset.UTC);
     }
 
-    private BigInteger generateYesterdayTime() {
-        return BigInteger.valueOf(LocalDateTime.now().minusDays(1).toEpochSecond(ZoneOffset.UTC));
+    private long generateYesterdayTime() {
+        return LocalDateTime.now().minusDays(1).toEpochSecond(ZoneOffset.UTC);
     }
 }

@@ -14,5 +14,6 @@ public enum Command {
     UPDATE_SUBTASK,
     DELETE_SUBTASK,
     SEARCH_TASK,
-    SEARCH_SUBTASK
+    SEARCH_SUBTASK,
+    EXIT
 }

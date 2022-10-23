@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+import static com.epam.mongo.domain.Command.EXIT;
+
 @Component
 public class FlowManager {
 
@@ -27,21 +29,30 @@ public class FlowManager {
                     6. Perform insert/update/delete all subtasks of the given task (query parameter).
                     7. Support full-text search by word in task description.
                     8. Support full-text search by sub-task name.
+                    9. Exit
                     """
     ;
 
     public void manage() {
-        Command command = getInputCommand();
-
-        commandDelegator.delegate(command);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            try {
+                Command command = getInputCommand(scanner);
+                if (EXIT.equals(command)) {
+                    break;
+                }
+                commandDelegator.delegate(command);
+            } catch (Exception e) {
+                System.err.println("EXCEPTION: " + e);
+            }
+        }
+        scanner.close();
     }
 
-    private Command getInputCommand() {
-        Scanner scanner = new Scanner(System.in);
+    private Command getInputCommand(Scanner scanner) {
         listCommands();
         String enteredCommand = scanner.nextLine();
         System.out.println("you entered: " + enteredCommand);
-        scanner.close();
 
         return CommandResolver.resolve(Integer.parseInt(enteredCommand));
     }

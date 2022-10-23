@@ -3,6 +3,7 @@ package com.epam.mongo.util;
 import com.epam.mongo.domain.Command;
 import org.springframework.stereotype.Component;
 
+import static com.epam.mongo.domain.Command.EXIT;
 import static com.epam.mongo.domain.Command.LIST_ALL;
 import static com.epam.mongo.domain.Command.LIST_OVERDUE;
 import static com.epam.mongo.domain.Command.LIST_SUBTASKS_WITH_GIVEN_CATEGORY;
@@ -25,6 +26,7 @@ public class CommandResolver {
             case 6 -> MANAGE_SUBTASK;
             case 7 -> SEARCH_TASK;
             case 8 -> SEARCH_SUBTASK;
+            case 9 -> EXIT;
             default -> throw new IllegalArgumentException("Given command is invalid: " + input);
         };
     }

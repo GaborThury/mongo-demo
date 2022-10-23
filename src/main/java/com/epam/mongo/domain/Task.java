@@ -2,21 +2,19 @@ package com.epam.mongo.domain;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigInteger;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Document
 public class Task {
 
-    private BigInteger createdAtInEpoch;
-    private BigInteger deadlineInEpoch;
+    private long createdAtInEpoch;
+    private long deadlineInEpoch;
     private String name;
     private String description;
     private List<SubTask> subtasks;
     private Category category;
 
-    public Task(BigInteger createdAtInEpoch, BigInteger deadlineInEpoch, String name, String description, List<SubTask> subtasks, Category category) {
+    public Task(long createdAtInEpoch, long deadlineInEpoch, String name, String description, List<SubTask> subtasks, Category category) {
         this.createdAtInEpoch = createdAtInEpoch;
         this.deadlineInEpoch = deadlineInEpoch;
         this.name = name;
@@ -25,19 +23,19 @@ public class Task {
         this.category = category;
     }
 
-    public BigInteger getCreatedAtInEpoch() {
+    public long getCreatedAtInEpoch() {
         return createdAtInEpoch;
     }
 
-    public void setCreatedAt(BigInteger createdAtInEpoch) {
+    public void setCreatedAt(long createdAtInEpoch) {
         this.createdAtInEpoch = createdAtInEpoch;
     }
 
-    public BigInteger getDeadlineInEpoch() {
+    public long getDeadlineInEpoch() {
         return deadlineInEpoch;
     }
 
-    public void setDeadlineInEpoch(BigInteger deadlineInEpoch) {
+    public void setDeadlineInEpoch(long deadlineInEpoch) {
         this.deadlineInEpoch = deadlineInEpoch;
     }
 
