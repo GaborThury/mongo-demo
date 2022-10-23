@@ -14,12 +14,13 @@ import static com.epam.mongo.domain.Command.LIST_SUBTASKS_WITH_GIVEN_CATEGORY;
 import static com.epam.mongo.domain.Command.LIST_WITH_GIVEN_CATEGORY;
 import static com.epam.mongo.domain.Command.MANAGE_SUBTASK;
 import static com.epam.mongo.domain.Command.MANAGE_TASK;
+import static com.epam.mongo.domain.Command.SEARCH_TASK_BY_DESCRIPTION;
 
 @Component
 public class FlowManager {
 
     private final CommandDelegator commandDelegator;
-    private final List<Command> queryNeededCommands = List.of(LIST_WITH_GIVEN_CATEGORY, LIST_SUBTASKS_WITH_GIVEN_CATEGORY);
+    private final List<Command> queryNeededCommands = List.of(LIST_WITH_GIVEN_CATEGORY, LIST_SUBTASKS_WITH_GIVEN_CATEGORY, SEARCH_TASK_BY_DESCRIPTION);
     private final List<Command> subcommandNeededCommands = List.of(MANAGE_TASK, MANAGE_SUBTASK);
 
     @Autowired
@@ -67,12 +68,12 @@ public class FlowManager {
 
 
 
-    private boolean isSubCommandRequired(Command command) {
-        return false;
-    }
-
     private boolean isQueryRequired(Command command) {
         return queryNeededCommands.contains(command);
+    }
+
+    private boolean isSubCommandRequired(Command command) {
+        return subcommandNeededCommands.contains(command);
     }
 
     private Command getInputCommand(Scanner scanner) {

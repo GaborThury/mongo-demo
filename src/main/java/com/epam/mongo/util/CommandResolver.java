@@ -11,7 +11,7 @@ import static com.epam.mongo.domain.Command.LIST_WITH_GIVEN_CATEGORY;
 import static com.epam.mongo.domain.Command.MANAGE_SUBTASK;
 import static com.epam.mongo.domain.Command.MANAGE_TASK;
 import static com.epam.mongo.domain.Command.SEARCH_SUBTASK;
-import static com.epam.mongo.domain.Command.SEARCH_TASK;
+import static com.epam.mongo.domain.Command.SEARCH_TASK_BY_DESCRIPTION;
 
 @Component
 public class CommandResolver {
@@ -24,7 +24,7 @@ public class CommandResolver {
             case 4 -> LIST_SUBTASKS_WITH_GIVEN_CATEGORY;
             case 5 -> MANAGE_TASK;
             case 6 -> MANAGE_SUBTASK;
-            case 7 -> SEARCH_TASK;
+            case 7 -> SEARCH_TASK_BY_DESCRIPTION;
             case 8 -> SEARCH_SUBTASK;
             case 9 -> EXIT;
             default -> throw new IllegalArgumentException("Given command is invalid: " + input);

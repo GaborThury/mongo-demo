@@ -44,6 +44,11 @@ public class TaskService {
         printElements(tasksWithGivenCategory);
     }
 
+    public void printTasksIfDescriptionContains(String query) {
+        List<Task> tasks = taskRepository.findByDescriptionLike(query);
+        printElements(tasks);
+    }
+
     public Task createTask(Task task) {
         return taskRepository.insert(task);
     }

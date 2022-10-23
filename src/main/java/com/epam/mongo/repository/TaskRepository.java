@@ -11,6 +11,6 @@ import java.util.List;
 public interface TaskRepository extends MongoRepository<Task, String> {
     List<Task> findByDeadlineInEpochLessThan(long deadlineInEpoch);
     List<Task> findByCategoryLike(Category category);
+    List<Task> findByDescriptionLike(String description);
 
-    // findByFirstnameLike(String name)
 }

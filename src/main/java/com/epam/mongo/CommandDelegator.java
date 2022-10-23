@@ -27,6 +27,7 @@ public class CommandDelegator {
             case LIST_WITH_GIVEN_CATEGORY -> taskService.printTasksWithGivenCategory(Category.valueOf(query));
             case LIST_SUBTASKS_WITH_GIVEN_CATEGORY -> taskService.printSubTasksWithGivenCategory(Category.valueOf(query));
             case MANAGE_TASK ->  delegateTaskBasedOnSubcommand(subCommand);
+            case SEARCH_TASK_BY_DESCRIPTION -> taskService.printTasksIfDescriptionContains(query);
         }
     }
 
