@@ -1,5 +1,6 @@
 package com.epam.mongo;
 
+import com.epam.mongo.domain.Category;
 import com.epam.mongo.domain.Command;
 import com.epam.mongo.repository.TaskRepository;
 import com.epam.mongo.service.TaskService;
@@ -16,10 +17,11 @@ public class CommandDelegator {
         this.taskService = taskService;
     }
 
-    public void delegate(Command command) {
+    public void delegate(Command command, String query) {
         switch (command) {
             case LIST_ALL -> taskService.printAllTasks();
             case LIST_OVERDUE -> taskService.printOverdueTasks();
+            case LIST_WITH_GIVEN_CATEGORY -> taskService.printTasksWithGivenCategory(Category.valueOf(query));
         }
     }
 }

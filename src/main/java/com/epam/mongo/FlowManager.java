@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Scanner;
 
 import static com.epam.mongo.domain.Command.EXIT;
+import static com.epam.mongo.domain.Command.LIST_WITH_GIVEN_CATEGORY;
 
 @Component
 public class FlowManager {
@@ -38,15 +39,26 @@ public class FlowManager {
         while (true) {
             try {
                 Command command = getInputCommand(scanner);
+                String query = null;
                 if (EXIT.equals(command)) {
                     break;
+                } else if (isQueryRequired(command)) {
+                    System.out.println("please enter the query");
+                    query = scanner.nextLine().toUpperCase();
                 }
-                commandDelegator.delegate(command);
+                commandDelegator.delegate(command, query);
             } catch (Exception e) {
                 System.err.println("EXCEPTION: " + e);
             }
         }
         scanner.close();
+    }
+
+    private boolean isQueryRequired(Command command) {
+        if (LIST_WITH_GIVEN_CATEGORY.equals(command)) {
+            return true;
+        }
+        return false;
     }
 
     private Command getInputCommand(Scanner scanner) {
